@@ -12,7 +12,7 @@ class Tutorial < Gosu::Window
         @font = Gosu::Font.new(20)
         @frame = 0
         @finalscore = 0
-        @timer = 5
+        @timer = 30
 
     end
     def update 
@@ -37,6 +37,7 @@ class Tutorial < Gosu::Window
         if @timer == -1
             @timer +=1
         end
+        
     end
 
     def draw 
@@ -45,10 +46,13 @@ class Tutorial < Gosu::Window
       @stars.each { |star| star.draw }
       @font.draw("Score: #{@player.score}", 10, 10, ZOrder::UI, 1.0, 1.0, Gosu::Color::YELLOW)
       @font.draw("Timer: #{@timer}", 500, 10, ZOrder::UI, 1.0, 1.0, Gosu::Color::GREEN)
-        if @timer == 0
+        if @timer == 0 && @score != 500
             @finalscore = @player.score
-          @font.draw("GAME OVER: FINAL SCORE; #{@finalscore}",10,150,ZOrder::UI, 2.0, 10.0, Gosu::Color::RED)
+          @font.draw("GAME OVER: FINAL SCORE: #{@finalscore}",10,150,ZOrder::UI, 2.0, 10.0, Gosu::Color::RED)
         end
+        if @score == 100
+            @font.draw("YOU WIN!",10,150, ZOrder::UI, 2.0, 10.0, Gosu::Color::GREEN)
+        end 
     end
     def buttondown(id)
         if id == Gosu::KB_ESCAPE
